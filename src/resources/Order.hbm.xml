@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+ 
+ <hibernate-mapping>
+ <class name = "com.shipt.pojos.Order" table = "Shipt_Order">
+ 
+ <id name = "id">
+ <generator class = "increment"></generator>
+ </id>
+ 
+ <property name="orderDate" type="timestamp" column="order_date"></property>
+  <property name="orderTotal" column="order_total"></property>
+  
+ <property name="status" column="ORDER_STATUS">
+    <type name="org.hibernate.type.EnumType">
+        <param name="enumClass">com.shipt.util.OrderStatus</param>
+    </type>
+</property>
+  <one-to-one name="objCustomer" cascade="all"></one-to-one>
+  
+ 
+ <bag name="listOrderProducts" table="ORDER_PRODUCTS">
+           <key column="id"/>
+           <composite-element class="com.shipt.pojos.OrderProducts">
+              <many-to-one name="order" column="ORDER_ID" class="com.shipt.pojos.Order" />
+              <many-to-one name="product" column="PRODUCT_ID" class="com.shipt.pojos.Product" />
+              <property name="quantity" column="QUANTITY" />
+           </composite-element>      
+ </bag>
+ 	
+ 	
+ </class>
+ </hibernate-mapping> 

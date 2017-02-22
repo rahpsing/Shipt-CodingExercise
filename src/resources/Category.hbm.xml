@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+ 
+ <hibernate-mapping>
+ <class name = "com.shipt.pojos.Category" table = "Shipt_Category">
+ 
+ <id name = "id">
+ <generator class = "increment"></generator>
+ </id>
+ 
+ <property name="categoryName" column="category_name"></property>
+
+ 
+  	<bag name="listOfProducts"  table="product_category"
+        	inverse="true" lazy="true" fetch="select" cascade="all">
+ 		<key column = "category_id"></key>
+ 		<many-to-many class = "com.shipt.pojos.Product">
+ 		 	<column name="PRODUCT_ID" not-null="true" />
+ 		 </many-to-many>
+ 	</bag>
+ 	
+ 	
+ </class>
+ </hibernate-mapping> 
